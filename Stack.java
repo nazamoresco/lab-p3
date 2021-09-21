@@ -4,16 +4,39 @@ import java.util.Iterator;
 public class Stack {
   private ArrayList<String> items;
 
-  private class StackIterator implements Iterator<String> {
-    private int currentPosition = 0;
+  // private class StackIterator implements Iterator<String> {
+  //   private int currentPosition = 0;
 
-    public boolean hasNext() {
-      return (currentPosition < items.size());
-    }
+  //   public boolean hasNext() {
+  //     return (currentPosition < items.size());
+  //   }
 
-    public String next() {
-      return items.get(currentPosition++);
-    }
+  //   public String next() {
+  //     return items.get(currentPosition++);
+  //   }
+  // }  
+
+  // public StackIterator iterator() {
+  //   return new StackIterator();
+  // }
+
+  //5.
+  // a tiene sentido cuando necesitamos declarar una clase solo para un metodo
+  // y no planeamos reusarlo, de esta manera nos asegurarmos de mantener todo consiso e impedir el reuso.
+
+  // b. hay que usar una sintaxis especial con llaves {}
+  public Iterator<String> iterator() {
+    return new Iterator<String>() {
+      private int currentPosition = 0;
+
+      public boolean hasNext() {
+        return (currentPosition < items.size());
+      }
+
+      public String next() {
+        return items.get(currentPosition++);
+      }
+    };
   }
 
   public Stack() {
@@ -47,24 +70,20 @@ public class Stack {
     return items.size();
   }
 
-  public StackIterator iterator() {
-    return new StackIterator();
+  public static void main(String[] args) {
+    Stack stack = new Stack();
+
+    stack.push("Perro");
+    stack.push("Gato");
+    stack.push("Mono");
+    stack.push("Buffalo");
+
+    int size = stack.size();
+    for (int i = 0; i < size; i++) {
+      System.out.println(stack.pop());
+    }
+
+    // c. con el iterator se puede recorrer infinitas veces el arreglo
+    // d. tiene que estar en el mismo archivo
   }
-
-  // public static void main(String[] args) {
-  //   Stack stack = new Stack();
-
-  //   stack.push("Perro");
-  //   stack.push("Gato");
-  //   stack.push("Mono");
-  //   stack.push("Buffalo");
-
-  //   int size = stack.size();
-  //   for (int i = 0; i < size; i++) {
-  //     System.out.println(stack.pop());
-  //   }
-
-  //   // c. con el iterator se puede recorrer infinitas veces el arreglo
-  //   // d. tiene que estar en el mismo archivo
-  // }
 };
